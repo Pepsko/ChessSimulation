@@ -1,4 +1,4 @@
-package brightone.pl.zadanie.nodes.figures;
+package brightone.pl.zadanie.nodes.pieces;
 
 import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
@@ -23,7 +23,7 @@ public class Rook extends Piece {
 
     @Override
     public boolean canMove(Color color) {
-        return canMoveHorizontally()||canMoveVertically();
+        return canMoveHorizontally().size()>0||canMoveVertically().size()>0;
     }
 
     public Direction[] getPossibleDirections() {
@@ -49,7 +49,10 @@ public class Rook extends Piece {
 
     @Override
     public Coords move(Color color) {
-        return chooseRandomMovement(Direction.VERTxHOR);
+        List<Direction> directions = new ArrayList<>();
+        directions.addAll(canMoveVertically());
+        directions.addAll(canMoveHorizontally());
+        return chooseRandomMovement(directions);
     }
 
     @Override

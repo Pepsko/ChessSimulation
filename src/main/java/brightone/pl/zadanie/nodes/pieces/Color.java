@@ -1,4 +1,4 @@
-package brightone.pl.zadanie.nodes.figures;
+package brightone.pl.zadanie.nodes.pieces;
 
 /**
  * Created by Lenovo on 2018-03-05.
@@ -15,6 +15,7 @@ public enum Color {
     public String getSignature() {
         return signature;
     }
+
     public Color getAnother(Color color){
         if (color==WHITE)return BLACK;
         else if(color==BLACK)return WHITE;

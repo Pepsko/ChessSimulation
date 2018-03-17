@@ -1,9 +1,10 @@
-package brightone.pl.zadanie.nodes.figures;
+package brightone.pl.zadanie.nodes.pieces;
 
 import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
 import brightone.pl.zadanie.nodes.board.Field;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Queen extends Piece {
     private final int points = 5;
     private final String signature = "h";
     private static final List<Integer> STARTING_POS = Arrays.asList(3, 60);
+
     public Queen(Color color ) {
         super(color);
         super.setFullSignature(signature+color.getSignature());
@@ -21,7 +23,7 @@ public class Queen extends Piece {
 
     @Override
     public boolean canMove(Color color) {
-        return canMoveDiagonally()||canMoveHorizontally()||canMoveVertically();
+        return canMoveDiagonally().size()>0||canMoveHorizontally().size()>0||canMoveVertically().size()>0;
     }
 
     public Direction[] getPossibleDirections() {
@@ -47,7 +49,11 @@ public class Queen extends Piece {
 
     @Override
     public Coords move(Color color) {
-        return chooseRandomMovement(Direction.ALL);
+        List<Direction> directions = new ArrayList<>();
+        directions.addAll(canMoveDiagonally());
+        directions.addAll(canMoveHorizontally());
+        directions.addAll(canMoveVertically());
+        return chooseRandomMovement(directions);
     }
 
     @Override
@@ -56,7 +62,7 @@ public class Queen extends Piece {
     }
 
     public boolean canMove(){
-        return canMoveDiagonally()||canMoveHorizontally()||canMoveVertically();
+        return canMoveDiagonally().size()>0||canMoveHorizontally().size()>0||canMoveVertically().size()>0;
     }
 
 }

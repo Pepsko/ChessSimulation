@@ -1,10 +1,9 @@
-package brightone.pl.zadanie.nodes.figures;
+package brightone.pl.zadanie.nodes.pieces;
 
 import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
 import brightone.pl.zadanie.nodes.board.Field;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,10 +23,9 @@ public class Bishop extends Piece {
         super(color);
         super.setFullSignature(signature+color.getSignature());
     }
-
     @Override
     public boolean canMove(Color color) {
-        return canMoveDiagonally();
+        return canMoveDiagonally().size()>0;
     }
 
     @Override
@@ -37,7 +35,7 @@ public class Bishop extends Piece {
 
     @Override
     public Coords move(Color color) {
-        return chooseRandomMovement(Direction.DIAGONAL);
+        return chooseRandomMovement(canMoveDiagonally());
     }
 
     @Override

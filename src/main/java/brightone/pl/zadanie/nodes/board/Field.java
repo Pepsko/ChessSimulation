@@ -1,26 +1,30 @@
-package brightone.pl.zadanie.nodes;
+package brightone.pl.zadanie.nodes.board;
 
 
-import brightone.pl.zadanie.nodes.Figures.AbstrPiece;
-import brightone.pl.zadanie.nodes.Figures.Empty;
+import brightone.pl.zadanie.nodes.pieces.Color;
+import brightone.pl.zadanie.nodes.pieces.Piece;
+import brightone.pl.zadanie.nodes.pieces.Empty;
+import brightone.pl.zadanie.nodes.moves.Coords;
 
 /**
  * Created by Lenovo on 2018-03-05.
  */
 public class Field {
+    private static int id=0;
     private String field;
-    private static int counter=0;
-    private AbstrPiece piece;
+    private Piece piece;
     private boolean empty;
     private Coords coords;
-    public Field(AbstrPiece piece, Coords coords) {
+
+    public Field(Piece piece, Coords coords) {
         empty = false;
         this.piece = piece;
         piece.setField(this);
         this.coords = coords;
         field= piece.getFullSignature();
-        counter++;
+        piece.setId(id++);
     }
+
     public Field(Coords coords){
         empty = true;
         Empty empty = new Empty(Color.NONE);
@@ -28,14 +32,6 @@ public class Field {
         this.coords = coords;
         this.piece = empty;
         field=empty.getSignature();
-        counter++;
-    }
-
-    public static int getCounter() {
-        return counter;
-    }
-    public static void resetCounter(){
-        counter=0;
     }
 
     public Coords getCoords() {
@@ -46,7 +42,7 @@ public class Field {
         this.coords = coords;
     }
 
-    public void setPiece(AbstrPiece piece) {
+    public void setPiece(Piece piece) {
         this.piece = piece;
     }
 
@@ -68,7 +64,7 @@ public class Field {
         return coords != null ? coords.equals(field1.coords) : field1.coords == null;
     }
 
-    public AbstrPiece getPiece() {
+    public Piece getPiece() {
         return piece;
     }
 
@@ -84,4 +80,6 @@ public class Field {
     public boolean isEmpty(){
         return empty;
     }
+
+
 }

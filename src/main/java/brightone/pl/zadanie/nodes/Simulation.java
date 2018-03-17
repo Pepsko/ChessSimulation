@@ -1,5 +1,13 @@
 package brightone.pl.zadanie.nodes;
 
+import brightone.pl.zadanie.nodes.board.Board;
+import brightone.pl.zadanie.nodes.board.Field;
+import brightone.pl.zadanie.nodes.pieces.Color;
+import brightone.pl.zadanie.nodes.moves.AttackInfo;
+import brightone.pl.zadanie.nodes.moves.Coords;
+import brightone.pl.zadanie.nodes.moves.Direction;
+import brightone.pl.zadanie.nodes.moves.Moves;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -24,19 +32,7 @@ public class Simulation {
         board.view();
     }
     private void Round(Color color){
-      //  if(attackEnemy(color)!=null)
-       //     Moves.kill(attackEnemy(color).getAttacker(), attackEnemy(color).getVictim());
-        Random random1 = new Random();
-        Random random2= new Random();
-        Coords coords = new Coords(random1.nextInt(8), random2.nextInt(8));
-        Field move= Board.getFieldByCoords(coords);
-        do {
-            if(coords.areFine()&& Board.getFieldByCoords(coords).isEmpty())
-            move = Board.getFieldByCoords(coords);
-            else coords=new Coords(random1.nextInt(8), random2.nextInt(8));
-            if(move.getPiece().canMove(color))
-            board.refresh(move, color);
-        }while(move.getPiece().getColor()!=color && !move.getPiece().canMove(color));
+        board.refresh(Moves.pickPiece(color), color);
     }
 
     public AttackInfo attackEnemy(Color color){
@@ -57,23 +53,23 @@ public class Simulation {
             for (int j = 0; j <8 ; j++) {
                 Field actual = Board.getFields()[i][j];
 
-                if(actual.getPiece().canAttack(color))
+                if(actual.getPiece().canAttack(color)) {
 
-                    for (int k = 0; k <actual.getPiece().getPossibleDirections().length; k++) {
+                    for (int k = 0; k < actual.getPiece().getPossibleDirections().length; k++) {
 
-                    Directions dir = actual.getPiece().getPossibleDirections()[k];
+                        Direction dir = actual.getPiece().getPossibleDirections()[k];
 
-                        if(actual.getPiece().attackableField(color, dir)!=null) {
+                        if (actual.getPiece().attackableField(color, dir) != null) {
 
                             possibleAttacks.put(x, addAttack(color, actual, dir));
                             x++;
                         }
                     }
+                }
             }
         }return possibleAttacks;
     }
-    private AttackInfo addAttack(Color color, Field actual, Directions dir){
-        AttackInfo attack = new AttackInfo(actual,actual.getPiece().attackableField(color,dir));
-        return attack;
+    private AttackInfo addAttack(Color color, Field actual, Direction dir){
+        return new AttackInfo(actual,actual.getPiece().attackableField(color,dir));
     }
 }

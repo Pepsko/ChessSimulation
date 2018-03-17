@@ -1,4 +1,4 @@
-package brightone.pl.zadanie.nodes;
+package brightone.pl.zadanie.nodes.moves;
 
 /**
  * Created by Lenovo on 2018-03-07.
@@ -35,18 +35,19 @@ public class Coords {
     public void setHorizontal(int horizontal) {
         this.horizontal = horizontal;
     }
+
     public boolean equalsVertically(Coords coords){
         return this.vertical==coords.vertical;
     }
+
     public boolean equalsHorizontally(Coords coords){
         return this.horizontal==coords.horizontal;
     }
+
     public Coords add(Coords coords){
-        Coords coords1 = new Coords(this.horizontal + coords.getHorizontal(),this.vertical + coords.getVertical());
-        //this.horizontal = this.horizontal + coords.getHorizontal();
-       // this.vertical = this.vertical + coords.getVertical();
-        return coords1;
+        return new Coords(this.horizontal + coords.getHorizontal(), this.vertical + coords.getVertical());
     }
+
     public Coords add(int vert, int hor){
         return new Coords(this.vertical+vert, this.horizontal+hor);
     }
@@ -55,6 +56,7 @@ public class Coords {
         this.vertical = vertical;
         this.horizontal = horizontal;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,6 +79,7 @@ public class Coords {
     public String toString() {
         return vertical +" "+ horizontal;
     }
+
     public boolean areFine(){
         return !(horizontal < 0 || horizontal > 7 || vertical < 0 || vertical > 7);
     }

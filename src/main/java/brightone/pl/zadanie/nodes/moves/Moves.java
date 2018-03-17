@@ -1,6 +1,11 @@
-package brightone.pl.zadanie.nodes;
+package brightone.pl.zadanie.nodes.moves;
 
-import brightone.pl.zadanie.nodes.Figures.AbstrPiece;
+import brightone.pl.zadanie.nodes.board.Board;
+import brightone.pl.zadanie.nodes.board.Field;
+import brightone.pl.zadanie.nodes.pieces.Color;
+import brightone.pl.zadanie.nodes.pieces.Piece;
+
+import java.util.Random;
 
 /**
  * Created by Lenovo on 2018-03-10.
@@ -11,14 +16,17 @@ public class Moves {
         fields[from.getVertical()][from.getHorizontal()] = fields[to.getVertical()][to.getHorizontal()];
         fields[to.getVertical()][to.getHorizontal()] = temp;
     }
-    public static void move(Field from, Field to){
-        Field temp = from;
-        from = to;
-        to = temp;
-    }
-    public static void kill(Field from, Field to){
-        to = from;
-        from = new Field(from.getCoords());
+    public static Piece pickPiece(Color color){
+        while (true) {
+            Random random = new Random();
+            int pick = random.nextInt(16);
+            if (color == Color.WHITE) {
+                pick = pick + 16;
+            }
+            if (Board.getPieceByID(pick).canMove(color)) {
+                return Board.getPieceByID(pick);
+            }
+        }
     }
 
 }

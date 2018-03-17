@@ -1,4 +1,4 @@
-package brightone.pl.zadanie.nodes.figures;
+package brightone.pl.zadanie.nodes.pieces;
 
 import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
@@ -36,6 +36,7 @@ public class Empty extends Piece {
     public boolean canAttack(Color color) {
         return false;
     }
+
     public Coords move(Color color){
         return null;
     }

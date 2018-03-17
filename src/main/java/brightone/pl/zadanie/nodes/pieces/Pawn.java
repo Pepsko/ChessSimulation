@@ -1,4 +1,4 @@
-package brightone.pl.zadanie.nodes.figures;
+package brightone.pl.zadanie.nodes.pieces;
 
 import brightone.pl.zadanie.nodes.board.Board;
 import brightone.pl.zadanie.nodes.board.Field;
@@ -50,6 +50,7 @@ public class Pawn extends Piece {
     public static List<Integer> getStartingPos(){
         return STARTING_POS;
     }
+
     public int getPoints() {
         return points;
     }

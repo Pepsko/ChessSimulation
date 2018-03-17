@@ -1,10 +1,9 @@
-package brightone.pl.zadanie.nodes.figures;
+package brightone.pl.zadanie.nodes.pieces;
 
 import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
 import brightone.pl.zadanie.nodes.board.Field;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class King extends Piece {
 
     @Override
     public boolean canMove(Color color) {
-        return canMoveDiagonally()||canMoveHorizontally()||canMoveVertically();
+        return (canMoveDiagonally().size()>0)||(canMoveHorizontally().size()>0)||(canMoveVertically().size()>0);
     }
 
     public static List<Integer> getStartingPos() {

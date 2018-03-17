@@ -1,11 +1,13 @@
-package brightone.pl.zadanie.nodes;
+package brightone.pl.zadanie.nodes.moves;
+
+import brightone.pl.zadanie.nodes.board.Field;
 
 /**
  * Created by Lenovo on 2018-03-11.
  */
 public class AttackInfo {
-    Field attacker;
-    Field victim;
+    private Field attacker;
+    private Field victim;
 
     public AttackInfo(Field attacker, Field victim) {
         this.attacker = attacker;

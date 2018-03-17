@@ -1,10 +1,9 @@
-package brightone.pl.zadanie.nodes.figures;
+package brightone.pl.zadanie.nodes.pieces;
 
 import brightone.pl.zadanie.nodes.board.Field;
 import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -29,7 +28,8 @@ public class Knight extends Piece {
 
     public Direction[] getPossibleDirections() {
         return new Direction[]{Direction.KNIGHTONE, Direction.KNIGHTWO,
-                Direction.KNIGHTTHREE, Direction.KNIGHTFOUR, Direction.KNIGHTSEV, Direction.KNIGHTEIGHT};
+                Direction.KNIGHTTHREE, Direction.KNIGHTFOUR,Direction.KNIGHTFIVE, Direction.KNIGHTSIX,
+                Direction.KNIGHTSEV, Direction.KNIGHTEIGHT};
     }
 
     @Override
