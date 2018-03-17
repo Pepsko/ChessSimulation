@@ -6,6 +6,7 @@ import brightone.pl.zadanie.nodes.board.Field;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Lenovo on 2018-03-05.
@@ -43,11 +44,12 @@ public class King extends Piece {
 
     @Override
     public Coords move(Color color) {
-        Direction directions;
+        Direction direction;
+        Random random = new Random();
         do {
-            directions = pickDirection(Direction.ALL);
-        }while(!checkDirection(directions));
-        return  moveInDirection(directions,1);
+            direction = canMoveInAllDirections().get(random.nextInt(canMoveInAllDirections().size()));
+        }while(!checkDirection(direction));
+        return  moveInDirection(direction,1);
     }
 
     @Override

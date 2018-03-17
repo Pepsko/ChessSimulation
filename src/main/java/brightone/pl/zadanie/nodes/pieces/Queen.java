@@ -49,11 +49,7 @@ public class Queen extends Piece {
 
     @Override
     public Coords move(Color color) {
-        List<Direction> directions = new ArrayList<>();
-        directions.addAll(canMoveDiagonally());
-        directions.addAll(canMoveHorizontally());
-        directions.addAll(canMoveVertically());
-        return chooseRandomMovement(directions);
+        return chooseRandomMovement(canMoveInAllDirections());
     }
 
     @Override

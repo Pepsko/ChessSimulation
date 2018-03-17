@@ -5,6 +5,9 @@ import brightone.pl.zadanie.nodes.board.Field;
 import brightone.pl.zadanie.nodes.pieces.Color;
 import brightone.pl.zadanie.nodes.pieces.Piece;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -17,14 +20,24 @@ public class Moves {
         fields[to.getVertical()][to.getHorizontal()] = temp;
     }
     public static Piece pickPiece(Color color){
+        List<Integer> toCheck = new ArrayList<>();
+        for (int i = 0; i <16; i++) {
+            toCheck.add(i);
+        }
         while (true) {
             Random random = new Random();
-            int pick = random.nextInt(16);
+            Collections.shuffle(toCheck);
+            Integer pick = toCheck.get(random.nextInt(toCheck.size()));
             if (color == Color.WHITE) {
                 pick = pick + 16;
             }
             if (Board.getPieceByID(pick).canMove(color)) {
                 return Board.getPieceByID(pick);
+            }else{
+                if (color==Color.WHITE){
+                    pick = pick-16;
+                }
+                toCheck.remove(pick);
             }
         }
     }

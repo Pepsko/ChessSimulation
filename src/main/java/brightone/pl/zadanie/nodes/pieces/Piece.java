@@ -67,6 +67,13 @@ public abstract class Piece {
         check = check.add(move);
         return check.areFine() && Board.getFields()[check.getVertical()][check.getHorizontal()].isEmpty();
     }
+    protected List<Direction> canMoveInAllDirections(){
+        List<Direction> directions = new ArrayList<>();
+        directions.addAll(canMoveDiagonally());
+        directions.addAll(canMoveHorizontally());
+        directions.addAll(canMoveVertically());
+        return directions;
+    }
     protected List<Direction> canMoveVertically(){
         List<Direction> directions = new ArrayList<>();
         Coords up = new Coords(this.getField().getCoords()).add(new Coords(1, 0));
@@ -105,12 +112,12 @@ public abstract class Piece {
     }
     protected int checkMoves(Direction dir){
         Coords coords = new Coords(this.getField().getCoords());
-        Coords checkBoard = new Coords(this.getField().getCoords());
         int y = dir.getVertical();
         int x = dir.getHorizontal();
         int possibleMoves = 0;
-        while(coords.add(new Coords(y, x)).areFine()
-                && Board.getFields()[checkBoard.getVertical()+y][checkBoard.getHorizontal()+x].isEmpty()){
+        Coords checkBoard = coords.add(new Coords(y, x));
+        while(checkBoard.areFine()
+                && Board.getFields()[checkBoard.getVertical()][checkBoard.getHorizontal()].isEmpty()){
             if(x>0)x++;
             if(x<0)x--;
             if(y>0)y++;
@@ -133,12 +140,12 @@ public abstract class Piece {
         return coords;
     }
     protected Coords chooseRandomMovement(List<Direction> dir){
-        int arg = 0;
         Random random = new Random();
         Direction direction = dir.get(random.nextInt(dir.size()));
+        int arg = checkMoves(direction);
         while(arg==0){
-            arg = checkMoves(direction);
             direction = dir.get(random.nextInt(dir.size()));
+            arg = checkMoves(direction);
         }
         return moveInDirection(direction, random.nextInt(arg)+1);
     }
