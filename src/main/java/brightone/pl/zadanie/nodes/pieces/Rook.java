@@ -26,7 +26,7 @@ public class Rook extends Piece {
         return canMoveHorizontally().size()>0||canMoveVertically().size()>0;
     }
 
-    public Direction[] getPossibleDirections() {
+    public Direction[] getAllDirections() {
         return new Direction[]{Direction.DOWN, Direction.UP, Direction.RIGHT, Direction.LEFT};
     }
 

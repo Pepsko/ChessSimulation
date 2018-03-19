@@ -53,7 +53,7 @@ public class Bishop extends Piece {
     public static List<Integer> getStartingPos() {
         return STARTING_POS;
     }
-    public Direction[] getPossibleDirections() {
+    public Direction[] getAllDirections() {
         return new Direction[]{Direction.UPLEFT, Direction.UPRIGHT, Direction.DOWNLEFT, Direction.DOWNRIGHT};
     }
 }

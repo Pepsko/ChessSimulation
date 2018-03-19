@@ -4,13 +4,11 @@ import brightone.pl.zadanie.nodes.board.Board;
 import brightone.pl.zadanie.nodes.board.Field;
 import brightone.pl.zadanie.nodes.pieces.Color;
 import brightone.pl.zadanie.nodes.moves.AttackInfo;
-import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
 import brightone.pl.zadanie.nodes.moves.Moves;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -55,9 +53,9 @@ public class Simulation {
 
                 if(actual.getPiece().canAttack(color)) {
 
-                    for (int k = 0; k < actual.getPiece().getPossibleDirections().length; k++) {
+                    for (int k = 0; k < actual.getPiece().getAllDirections().length; k++) {
 
-                        Direction dir = actual.getPiece().getPossibleDirections()[k];
+                        Direction dir = actual.getPiece().getAllDirections()[k];
 
                         if (actual.getPiece().attackableField(color, dir) != null) {
 

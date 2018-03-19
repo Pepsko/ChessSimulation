@@ -28,7 +28,7 @@ public class Empty extends Piece {
     }
 
     @Override
-    public Direction[] getPossibleDirections() {
+    public Direction[] getAllDirections() {
         return new Direction[0];
     }
 

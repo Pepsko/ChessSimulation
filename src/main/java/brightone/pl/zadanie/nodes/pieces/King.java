@@ -19,7 +19,7 @@ public class King extends Piece {
         return signature;
     }
 
-    public Direction[] getPossibleDirections() {
+    public Direction[] getAllDirections() {
         return new Direction[]{Direction.UPLEFT, Direction.UPRIGHT, Direction.DOWNLEFT, Direction.DOWNRIGHT, Direction.DOWN, Direction.UP, Direction.RIGHT, Direction.LEFT};
     }
 

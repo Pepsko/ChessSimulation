@@ -26,7 +26,7 @@ public class Queen extends Piece {
         return canMoveDiagonally().size()>0||canMoveHorizontally().size()>0||canMoveVertically().size()>0;
     }
 
-    public Direction[] getPossibleDirections() {
+    public Direction[] getAllDirections() {
         return new Direction[]{Direction.UPLEFT, Direction.UPRIGHT, Direction.DOWNLEFT, Direction.DOWNRIGHT, Direction.DOWN, Direction.UP, Direction.RIGHT, Direction.LEFT};
     }
 

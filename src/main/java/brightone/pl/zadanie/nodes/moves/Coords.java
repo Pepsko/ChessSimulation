@@ -1,5 +1,7 @@
 package brightone.pl.zadanie.nodes.moves;
 
+import brightone.pl.zadanie.nodes.board.Board;
+
 /**
  * Created by Lenovo on 2018-03-07.
  */
@@ -83,7 +85,10 @@ public class Coords {
         return vertical +" "+ horizontal;
     }
 
-    public boolean areFine(){
+    public boolean withinBoard(){
         return !(horizontal < 0 || horizontal > 7 || vertical < 0 || vertical > 7);
+    }
+    public boolean areFine(){
+        return withinBoard() && Board.getFieldByCoords(this).isEmpty();
     }
 }

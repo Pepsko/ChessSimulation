@@ -28,7 +28,7 @@ public class Pawn extends Piece {
         return signature;
     }
 
-    public Direction[] getPossibleDirections() {
+    public Direction[] getAllDirections() {
         return new Direction[]{Direction.DOWN, Direction.UP};
     }
 
@@ -44,7 +44,7 @@ public class Pawn extends Piece {
         int hor = this.getField().getCoords().getHorizontal();
         if(color==Color.WHITE)
             x=-1;
-        return new Coords(ver + x, hor).areFine() && Board.getFields()[ver + x][hor].isEmpty();
+        return new Coords(ver + x, hor).withinBoard() && Board.getFields()[ver + x][hor].isEmpty();
     }
 
     public static List<Integer> getStartingPos(){
@@ -83,12 +83,12 @@ public class Pawn extends Piece {
         Coords rightOne = new Coords(vert + y, hor + x);
         Color leftColor=Color.NONE;
         Color rightColor=Color.NONE;
-        if(leftOne.areFine())
+        if(leftOne.withinBoard())
         leftColor = Board.getFieldByCoords(leftOne).getPiece().getColor();
-        if(rightOne.areFine())
+        if(rightOne.withinBoard())
         rightColor = Board.getFieldByCoords(rightOne).getPiece().getColor();
-        boolean left = leftOne.areFine() && leftColor != color && leftColor != Color.NONE;
-        boolean right = rightOne.areFine() && rightColor != color && rightColor != Color.NONE;
+        boolean left = leftOne.withinBoard() && leftColor != color && leftColor != Color.NONE;
+        boolean right = rightOne.withinBoard() && rightColor != color && rightColor != Color.NONE;
         return left||right;
     }
     @Override
@@ -102,12 +102,12 @@ public class Pawn extends Piece {
         Coords rightOne = new Coords(vert + y, hor + x);
         Color leftColor=Color.NONE;
         Color rightColor=Color.NONE;
-        if(leftOne.areFine())
+        if(leftOne.withinBoard())
         leftColor = Board.getFieldByCoords(leftOne).getPiece().getColor();
-        if(rightOne.areFine())
+        if(rightOne.withinBoard())
         rightColor = Board.getFieldByCoords(rightOne).getPiece().getColor();
-        boolean left = leftOne.areFine() && leftColor != color && leftColor != Color.NONE;
-        boolean right = rightOne.areFine() && rightColor != color && rightColor != Color.NONE;
+        boolean left = leftOne.withinBoard() && leftColor != color && leftColor != Color.NONE;
+        boolean right = rightOne.withinBoard() && rightColor != color && rightColor != Color.NONE;
         if(left) return Board.getFieldByCoords(leftOne);
         else if(right) return Board.getFieldByCoords(rightOne);
         return null;
