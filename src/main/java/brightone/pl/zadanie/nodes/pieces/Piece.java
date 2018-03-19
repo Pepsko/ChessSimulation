@@ -76,8 +76,8 @@ public abstract class Piece {
     }
     protected List<Direction> canMoveVertically(){
         List<Direction> directions = new ArrayList<>();
-        Coords up = new Coords(this.getField().getCoords()).add(new Coords(1, 0));
-        Coords down = new Coords(this.getField().getCoords()).add(new Coords(-1, 0));
+        Coords up = new Coords(this.getField().getCoords()).addDirection(Direction.UP);
+        Coords down = new Coords(this.getField().getCoords()).addDirection(Direction.DOWN);
         boolean upCheck = up.areFine() && Board.getFields()[up.getVertical()][up.getHorizontal()].isEmpty();
         boolean downCheck = down.areFine()&& Board.getFields()[down.getVertical()][down.getHorizontal()].isEmpty();
         if(upCheck) directions.add(Direction.UP);
@@ -86,8 +86,8 @@ public abstract class Piece {
     }
     protected List<Direction> canMoveHorizontally(){
         List<Direction> directions = new ArrayList<>();
-        Coords left = new Coords(this.getField().getCoords()).add(new Coords(0, 1));
-        Coords right = new Coords(this.getField().getCoords()).add(new Coords(0, -1));
+        Coords left = new Coords(this.getField().getCoords()).addDirection(Direction.LEFT);
+        Coords right = new Coords(this.getField().getCoords()).addDirection(Direction.RIGHT);
         boolean leftCheck = left.areFine() && Board.getFields()[left.getVertical()][left.getHorizontal()].isEmpty();
         boolean rightCheck =  left.areFine() && Board.getFields()[left.getVertical()][left.getHorizontal()].isEmpty();
         if(leftCheck) directions.add(Direction.LEFT);
@@ -96,10 +96,10 @@ public abstract class Piece {
     }
     protected List<Direction> canMoveDiagonally(){
         List<Direction> directions = new ArrayList<>();
-        Coords leftUp = new Coords(this.getField().getCoords()).add(new Coords(-1, -1));
-        Coords rightUp = new Coords(this.getField().getCoords()).add(new Coords(-1, 1));
-        Coords leftDown= new Coords(this.getField().getCoords()).add(new Coords(1, -1));
-        Coords rightDown= new Coords(this.getField().getCoords()).add(new Coords(1, 1));
+        Coords leftUp = new Coords(this.getField().getCoords()).addDirection(Direction.UPLEFT);
+        Coords rightUp = new Coords(this.getField().getCoords()).addDirection(Direction.UPRIGHT);
+        Coords leftDown= new Coords(this.getField().getCoords()).addDirection(Direction.DOWNLEFT);
+        Coords rightDown= new Coords(this.getField().getCoords()).addDirection(Direction.DOWNRIGHT);
         boolean leftUpCheck = leftUp.areFine() && Board.getFields()[leftUp.getVertical()][leftUp.getHorizontal()].isEmpty();
         boolean rightUpCheck =  rightUp.areFine() && Board.getFields()[rightUp.getVertical()][rightUp.getHorizontal()].isEmpty();
         boolean leftDownCheck = leftDown.areFine() && Board.getFields()[leftDown.getVertical()][leftDown.getHorizontal()].isEmpty();
@@ -122,6 +122,7 @@ public abstract class Piece {
             if(x<0)x--;
             if(y>0)y++;
             if(y<0)y--;
+            checkBoard = coords.add(new Coords(y, x));
             possibleMoves++;
         }
         return possibleMoves;

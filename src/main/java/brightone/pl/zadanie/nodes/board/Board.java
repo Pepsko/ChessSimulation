@@ -3,6 +3,7 @@ package brightone.pl.zadanie.nodes.board;
 import brightone.pl.zadanie.nodes.pieces.Color;
 import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Moves;
+import brightone.pl.zadanie.nodes.pieces.Empty;
 import brightone.pl.zadanie.nodes.pieces.Piece;
 
 /**
@@ -80,6 +81,6 @@ public class Board {
                     return fields[i][j].getPiece();
             }
         }
-        return null;
+        return new Empty(Color.NONE);
     }
 }

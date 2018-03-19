@@ -47,6 +47,9 @@ public class Coords {
     public Coords add(Coords coords){
         return new Coords(this.vertical + coords.getVertical(), this.horizontal + coords.getHorizontal());
     }
+    public Coords addDirection(Direction direction){
+        return new Coords(this.vertical + direction.getVertical(), this.horizontal + direction.getHorizontal());
+    }
 
     public Coords add(int vert, int hor){
         return new Coords(this.vertical+vert, this.horizontal+hor);
