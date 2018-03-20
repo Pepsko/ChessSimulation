@@ -62,7 +62,7 @@ public class Pawn extends Piece {
         Random rand = new Random();
         Coords coords = new Coords(this.getField().getCoords());
         int shift = rand.nextInt(2)+1;
-        if(color==Color.WHITE){
+        if(color.equals(Color.WHITE)){
             shift=-shift;
         }
         if((shift==2||shift==-2) && Board.getFields()[coords.getVertical()][coords.getHorizontal()].isEmpty()){
@@ -72,44 +72,25 @@ public class Pawn extends Piece {
             coords.setVertical(coords.getVertical()+shift);
         return coords;
     }
+
     @Override
-    public boolean canAttack(Color color){
-        int vert = this.getField().getCoords().getVertical();
-        int hor = this.getField().getCoords().getHorizontal();
-        int y=1;
-        int x=1;
-        if(color==Color.WHITE) y=-1;
-        Coords leftOne = new Coords(vert + y, hor - x);
-        Coords rightOne = new Coords(vert + y, hor + x);
-        Color leftColor=Color.NONE;
-        Color rightColor=Color.NONE;
-        if(leftOne.withinBoard())
-        leftColor = Board.getFieldByCoords(leftOne).getPiece().getColor();
-        if(rightOne.withinBoard())
-        rightColor = Board.getFieldByCoords(rightOne).getPiece().getColor();
-        boolean left = leftOne.withinBoard() && leftColor != color && leftColor != Color.NONE;
-        boolean right = rightOne.withinBoard() && rightColor != color && rightColor != Color.NONE;
-        return left||right;
-    }
-    @Override
-    public Field attackableField(Color color, Direction dirs){
-        int vert = this.getField().getCoords().getVertical();
-        int hor = this.getField().getCoords().getHorizontal();
-        int y=1;
-        int x=1;
-        if(color==Color.WHITE) y=-1;
-        Coords leftOne = new Coords(vert + y, hor - x);
-        Coords rightOne = new Coords(vert + y, hor + x);
-        Color leftColor=Color.NONE;
-        Color rightColor=Color.NONE;
-        if(leftOne.withinBoard())
-        leftColor = Board.getFieldByCoords(leftOne).getPiece().getColor();
-        if(rightOne.withinBoard())
-        rightColor = Board.getFieldByCoords(rightOne).getPiece().getColor();
-        boolean left = leftOne.withinBoard() && leftColor != color && leftColor != Color.NONE;
-        boolean right = rightOne.withinBoard() && rightColor != color && rightColor != Color.NONE;
-        if(left) return Board.getFieldByCoords(leftOne);
-        else if(right) return Board.getFieldByCoords(rightOne);
+    public Field attackableField(Color color, Direction directions) {
         return null;
+    }
+
+    @Override
+    public List<Field> canAttack(Color color){
+       Direction directions[] = {Direction.UPLEFT, Direction.UPRIGHT, Direction.DOWNLEFT, Direction.DOWNRIGHT};
+       int x = 2;
+       if(color.equals(Color.BLACK)){
+           x= x+2;
+       }
+       List<Field> attackableFields = new ArrayList<>();
+        for (int i = x-2; i <x; i++) {
+            if(findEnemyAround(color, directions[i])!=null) {
+                attackableFields.add(findEnemyAround(color, directions[i]));
+            }
+        }
+        return attackableFields;
     }
 }

@@ -6,6 +6,7 @@ import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -27,24 +28,9 @@ public abstract class Piece {
 
     public abstract Direction[] getAllDirections();
 
-    public List<Direction> getPossibleDirections(){
-        List<Direction> possibleDirections = new ArrayList<>();
-        Coords actualCoords = this.getField().getCoords();
-        Coords beingChecked;
-        for (int i = 0; i <getAllDirections().length ; i++) {
-            beingChecked = actualCoords.addDirection(getAllDirections()[i]);
-            if(beingChecked.areFine()){
-                possibleDirections.add(getAllDirections()[i]);
-            }
-        }
-        return possibleDirections;
-    }
-
     public Color getColor(){
         return color;
     }
-
-    public abstract boolean canAttack(Color color);
 
     public abstract Coords move(Color color);
 
@@ -74,6 +60,20 @@ public abstract class Piece {
         return field;
     }
 
+    public abstract List<Field> canAttack(Color color);
+
+    public List<Direction> getPossibleDirections(){
+        List<Direction> possibleDirections = new ArrayList<>();
+        Coords actualCoords = this.getField().getCoords();
+        Coords beingChecked;
+        for (int i = 0; i <getAllDirections().length ; i++) {
+            beingChecked = actualCoords.addDirection(getAllDirections()[i]);
+            if(beingChecked.areFine()){
+                possibleDirections.add(getAllDirections()[i]);
+            }
+        }
+        return possibleDirections;
+    }
 
     protected Coords moveInDirection(Direction dir, int moves){
         Coords coords = new Coords(this.getField().getCoords());
@@ -88,6 +88,7 @@ public abstract class Piece {
         coords.setCoords(coords.getVertical()+y,coords.getHorizontal()+x);
         return coords;
     }
+
     protected Coords chooseRandomMovement(List<Direction> dir){
         Random random = new Random();
         Direction direction = dir.get(random.nextInt(dir.size()));
@@ -98,12 +99,13 @@ public abstract class Piece {
         }
         return moveInDirection(direction, random.nextInt(arg)+1);
     }
+
     protected boolean checkDirection(Direction directions) {
         Coords coords = this.getField().getCoords().addDirection(directions);
         return coords.areFine();
     }
 
-    protected Field findEnemyDiagonally(Color color, Direction directions){
+    protected Field findEnemyLongMoves(Color color, Direction directions){
         int vert = directions.getVertical();
         int hor = directions.getHorizontal();
         Coords coords = new Coords(this.getField().getCoords());
@@ -117,14 +119,36 @@ public abstract class Piece {
         }
         return null;
     }
+    protected List<Field> canAttackLongMoves(Color color){
+        List<Field> attackableFields = new ArrayList<>();
+        for (int i = 0; i <getAllDirections().length ; i++) {
+            if(findEnemyLongMoves(color, getAllDirections()[i])!=null){
+                attackableFields.add(findEnemyLongMoves(color, getAllDirections()[i]));
+            }
+        }
+        return attackableFields;
+    }
+
     protected Field findEnemyAround(Color color, Direction directions){
         Coords coords = new Coords(this.getField().getCoords());
            int hor = directions.getHorizontal();
            int ver = directions.getVertical();
-           if(coords.add(ver, hor).withinBoard()&&Board.getFieldByCoords(coords.add(ver, hor)).getPiece().getColor()==color.getAnother(color))
+           if(coords.add(ver, hor).withinBoard()&&Board.getFieldByCoords(coords.add(ver, hor)).getPiece().getColor()==color.getAnother(color)) {
                return Board.getFieldByCoords(coords.add(ver, hor));
-           else return null;
+           } else {
+               return null;
+           }
+    }
+
+    protected List<Field> canAttackAround(Color color){
+        List<Field> attackableFields = new ArrayList<>();
+        for (int i = 0; i <getAllDirections().length ; i++) {
+            if(findEnemyAround(color, getAllDirections()[i])!=null){
+                attackableFields.add(findEnemyAround(color, getAllDirections()[i]));
+            }
         }
+        return attackableFields;
+    }
 
     protected int checkMoves(Direction dir){
         Coords coords = new Coords(this.getField().getCoords());

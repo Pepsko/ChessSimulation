@@ -1,6 +1,5 @@
 package brightone.pl.zadanie.nodes.pieces;
 
-import brightone.pl.zadanie.nodes.board.Board;
 import brightone.pl.zadanie.nodes.board.Field;
 import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
@@ -35,8 +34,14 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean canAttack(Color color) {
-        return true;
+    public List<Field> canAttack(Color color) {
+        List<Field> attackableFields = new ArrayList<>();
+        for (int i = 0; i <getAllDirections().length; i++) {
+            if(findEnemyAround(color, getAllDirections()[i])!=null) {
+                attackableFields.add(findEnemyAround(color, getAllDirections()[i]));
+            }
+        }
+        return attackableFields;
     }
 
     public String getSignature() {
@@ -61,7 +66,7 @@ public class Knight extends Piece {
 
     @Override
     public Field attackableField(Color color, Direction directions) {
-        return findEnemyDiagonally(color, directions);
+        return findEnemyLongMoves(color, directions);
     }
 
 }

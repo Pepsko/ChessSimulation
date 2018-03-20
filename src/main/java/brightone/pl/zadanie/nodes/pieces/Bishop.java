@@ -4,6 +4,7 @@ import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
 import brightone.pl.zadanie.nodes.board.Field;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,23 +26,23 @@ public class Bishop extends Piece {
     }
     @Override
     public boolean canMove(Color color) {
-        return canMoveDiagonally().size()>0;
+        return getPossibleDirections().size()>0;
     }
 
     @Override
-    public boolean canAttack(Color color) {
-        return true;
+    public List<Field> canAttack(Color color) {
+        return canAttackLongMoves(color);
     }
 
     @Override
     public Coords move(Color color) {
-        return chooseRandomMovement(canMoveDiagonally());
+        return chooseRandomMovement(getPossibleDirections());
     }
 
     @Override
     public Field attackableField(Color color, Direction directions) {
-        if(findEnemyDiagonally(color,directions)!=null)
-            return findEnemyDiagonally(color, directions);
+        if(findEnemyLongMoves(color,directions)!=null)
+            return findEnemyLongMoves(color, directions);
         else return null;
     }
 

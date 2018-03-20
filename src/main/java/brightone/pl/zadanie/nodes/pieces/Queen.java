@@ -4,7 +4,6 @@ import brightone.pl.zadanie.nodes.moves.Coords;
 import brightone.pl.zadanie.nodes.moves.Direction;
 import brightone.pl.zadanie.nodes.board.Field;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class Queen extends Piece {
 
     @Override
     public boolean canMove(Color color) {
-        return canMoveDiagonally().size()>0||canMoveHorizontally().size()>0||canMoveVertically().size()>0;
+        return getPossibleDirections().size()>0;
     }
 
     public Direction[] getAllDirections() {
@@ -31,8 +30,8 @@ public class Queen extends Piece {
     }
 
     @Override
-    public boolean canAttack(Color color) {
-        return true;
+    public List<Field> canAttack(Color color) {
+        return canAttackLongMoves(color);
     }
 
     public String getSignature() {
@@ -49,16 +48,16 @@ public class Queen extends Piece {
 
     @Override
     public Coords move(Color color) {
-        return chooseRandomMovement(canMoveInAllDirections());
+        return chooseRandomMovement(getPossibleDirections());
     }
 
     @Override
     public Field attackableField(Color color, Direction directions) {
-        return findEnemyDiagonally(color, directions);
+        return findEnemyLongMoves(color, directions);
     }
 
     public boolean canMove(){
-        return canMoveDiagonally().size()>0||canMoveHorizontally().size()>0||canMoveVertically().size()>0;
+        return getPossibleDirections().size()>0;
     }
 
 }

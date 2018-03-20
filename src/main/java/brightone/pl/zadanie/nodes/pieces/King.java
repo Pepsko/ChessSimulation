@@ -24,8 +24,8 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean canAttack(Color color) {
-        return true;
+    public List<Field> canAttack(Color color) {
+        return canAttackAround(color);
     }
 
     public King(Color color) {
@@ -35,7 +35,7 @@ public class King extends Piece {
 
     @Override
     public boolean canMove(Color color) {
-        return (canMoveDiagonally().size()>0)||(canMoveHorizontally().size()>0)||(canMoveVertically().size()>0);
+        return getPossibleDirections().size()>0;
     }
 
     public static List<Integer> getStartingPos() {
@@ -47,7 +47,7 @@ public class King extends Piece {
         Direction direction;
         Random random = new Random();
         do {
-            direction = canMoveInAllDirections().get(random.nextInt(canMoveInAllDirections().size()));
+            direction = getPossibleDirections().get(random.nextInt(getPossibleDirections().size()));
         }while(!checkDirection(direction));
         return  moveInDirection(direction,1);
     }
