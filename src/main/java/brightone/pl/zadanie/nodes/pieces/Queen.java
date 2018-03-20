@@ -30,9 +30,11 @@ public class Queen extends Piece {
     }
 
     @Override
-    public List<Field> canAttack(Color color) {
+    public List<Field> attackableFields(Color color) {
         return canAttackLongMoves(color);
     }
+
+
 
     public String getSignature() {
         return signature;
@@ -42,7 +44,7 @@ public class Queen extends Piece {
         return STARTING_POS;
     }
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 

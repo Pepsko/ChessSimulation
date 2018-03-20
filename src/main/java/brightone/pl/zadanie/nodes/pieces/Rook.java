@@ -31,7 +31,7 @@ public class Rook extends Piece {
     }
 
     @Override
-    public List<Field> canAttack(Color color) {
+    public List<Field> attackableFields(Color color) {
         return canAttackLongMoves(color);
     }
 
@@ -42,7 +42,7 @@ public class Rook extends Piece {
         return STARTING_POS;
     }
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
@@ -56,5 +56,6 @@ public class Rook extends Piece {
     public Field attackableField(Color color, Direction directions) {
         return findEnemyLongMoves(color, directions);
     }
+
 
 }

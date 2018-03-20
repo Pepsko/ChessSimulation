@@ -28,13 +28,18 @@ public class Empty extends Piece {
     }
 
     @Override
+    public boolean canAttack(Color color) {
+        return false;
+    }
+
+    @Override
     public Direction[] getAllDirections() {
         return new Direction[0];
     }
 
     @Override
-    public boolean canAttack(Color color) {
-        return false;
+    public List<Field> attackableFields(Color color) {
+        return null;
     }
 
     public Coords move(Color color){

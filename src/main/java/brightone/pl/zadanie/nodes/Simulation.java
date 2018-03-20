@@ -30,7 +30,7 @@ public class Simulation {
         board.view();
     }
     private void Round(Color color){
-        board.refresh(Moves.pickPiece(color), color);
+        board.refresh(Moves.pickPieceToMove(color), color);
     }
 
     public AttackInfo attackEnemy(Color color){
@@ -51,7 +51,7 @@ public class Simulation {
             for (int j = 0; j <8 ; j++) {
                 Field actual = Board.getFields()[i][j];
 
-                if(actual.getPiece().canAttack(color)) {
+                if(actual.getPiece().attackableFields(color)) {
 
                     for (int k = 0; k < actual.getPiece().getAllDirections().length; k++) {
 

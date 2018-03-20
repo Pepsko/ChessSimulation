@@ -24,7 +24,7 @@ public class King extends Piece {
     }
 
     @Override
-    public List<Field> canAttack(Color color) {
+    public List<Field> attackableFields(Color color) {
         return canAttackAround(color);
     }
 
@@ -58,7 +58,7 @@ public class King extends Piece {
     }
 
     @Override
-    public int getPoints() {
+    public Integer getPoints() {
         return 0;
     }
 }

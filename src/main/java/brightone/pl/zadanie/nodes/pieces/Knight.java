@@ -26,6 +26,7 @@ public class Knight extends Piece {
     public boolean canMove(Color color) {
         return getPossibleDirections().size()>0;
     }
+
     @Override
     public Direction[] getAllDirections() {
         return new Direction[]{Direction.KNIGHTONE, Direction.KNIGHTWO,
@@ -34,7 +35,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public List<Field> canAttack(Color color) {
+    public List<Field> attackableFields(Color color) {
         List<Field> attackableFields = new ArrayList<>();
         for (int i = 0; i <getAllDirections().length; i++) {
             if(findEnemyAround(color, getAllDirections()[i])!=null) {
@@ -52,7 +53,7 @@ public class Knight extends Piece {
         return STARTING_POS;
     }
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 

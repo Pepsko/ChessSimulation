@@ -29,8 +29,9 @@ public class Bishop extends Piece {
         return getPossibleDirections().size()>0;
     }
 
+
     @Override
-    public List<Field> canAttack(Color color) {
+    public List<Field> attackableFields(Color color) {
         return canAttackLongMoves(color);
     }
 

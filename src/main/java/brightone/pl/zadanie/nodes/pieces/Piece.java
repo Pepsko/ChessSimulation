@@ -13,11 +13,12 @@ import java.util.Random;
 /**
  * Created by Lenovo on 2018-03-05.
  */
-public abstract class Piece {
+public abstract class Piece implements Comparable<Piece>{
     private Color color;
     private String fullSignature;
     private Field field;
     private int id;
+
     public String getFullSignature() {
         return fullSignature;
     }
@@ -36,7 +37,7 @@ public abstract class Piece {
 
     public abstract Field attackableField(Color color, Direction directions);
 
-    public abstract int getPoints();
+    public abstract Integer getPoints();
 
     public int getId(){
         return id;
@@ -60,7 +61,15 @@ public abstract class Piece {
         return field;
     }
 
-    public abstract List<Field> canAttack(Color color);
+    public abstract List<Field> attackableFields(Color color);
+
+    public boolean canAttack(Color color){
+        return attackableFields(color).size()>0;
+    }
+    @Override
+    public int compareTo(Piece o){
+        return getPoints().compareTo(o.getPoints());
+    }
 
     public List<Direction> getPossibleDirections(){
         List<Direction> possibleDirections = new ArrayList<>();

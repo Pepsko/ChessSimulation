@@ -51,7 +51,7 @@ public class Pawn extends Piece {
         return STARTING_POS;
     }
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 
@@ -79,7 +79,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public List<Field> canAttack(Color color){
+    public List<Field> attackableFields(Color color){
        Direction directions[] = {Direction.UPLEFT, Direction.UPRIGHT, Direction.DOWNLEFT, Direction.DOWNRIGHT};
        int x = 2;
        if(color.equals(Color.BLACK)){
