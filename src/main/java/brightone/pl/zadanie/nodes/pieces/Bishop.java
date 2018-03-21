@@ -47,7 +47,7 @@ public class Bishop extends Piece {
         else return null;
     }
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 

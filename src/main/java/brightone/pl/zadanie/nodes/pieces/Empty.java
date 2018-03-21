@@ -52,7 +52,7 @@ public class Empty extends Piece {
     }
 
     @Override
-    public int getPoints() {
+    public Integer getPoints() {
         return 0;
     }
 

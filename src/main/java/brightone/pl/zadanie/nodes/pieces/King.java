@@ -14,7 +14,23 @@ import java.util.Random;
 public class King extends Piece {
     private final String signature = "K";
     private static final List<Integer> STARTING_POS = Arrays.asList(4,59);
+    private boolean inCheck = false;
 
+    public void setCheck(){
+        this.inCheck=true;
+    }
+
+    public boolean inCheck(){
+        return inCheck;
+    }
+    public boolean canEscape(){
+        List<Direction> directions = getPossibleDirections();
+        for (Direction direction: directions) {
+            if(getField().getCoords().addDirection(direction).areFine())
+                return true;
+        }
+        return false;
+    }
     public String getSignature() {
         return signature;
     }
@@ -61,4 +77,5 @@ public class King extends Piece {
     public Integer getPoints() {
         return 0;
     }
+
 }

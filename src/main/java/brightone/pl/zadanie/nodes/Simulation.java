@@ -6,6 +6,7 @@ import brightone.pl.zadanie.nodes.pieces.Color;
 import brightone.pl.zadanie.nodes.moves.AttackInfo;
 import brightone.pl.zadanie.nodes.moves.Direction;
 import brightone.pl.zadanie.nodes.moves.Moves;
+import brightone.pl.zadanie.nodes.pieces.King;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,53 +22,31 @@ public class Simulation {
             Round(Color.WHITE);
             board.view();
             System.out.println();
-            TimeUnit.SECONDS.sleep(1);
+            //
+            // TimeUnit.SECONDS.sleep(1);
             Round(Color.BLACK);
             board.view();
             System.out.println();
-            TimeUnit.SECONDS.sleep(1);
+           // TimeUnit.SECONDS.sleep(1);
         }
         board.view();
     }
     private void Round(Color color){
-        board.refresh(Moves.pickPieceToMove(color), color);
+        if(!Moves.attack(color)) {
+            board.refresh(Moves.pickPieceToMove(color), color);
+        }
     }
 
-    public AttackInfo attackEnemy(Color color){
-        int x=0;
-        int check = 0;
-        for (int i = 0; i <lookForEnemy(color).size() ; i++) {
-            if(lookForEnemy(color).get(i).getVictim().getPiece().getPoints()>x) {
-                x = lookForEnemy(color).get(i).getVictim().getPiece().getPoints();
-                check=i;
-            }
-        }return lookForEnemy(color).get(check);
+    private boolean kingChecked(Color color){
+        int id = 4;
+        if(color.equals(Color.WHITE)){
+            id = 59;
+        }
+        King king = (King)Board.getPieceByID(id);
+        return king.inCheck();
+    }
+    private boolean checkMate(Color color){
+        if(kingChecked(color))
     }
 
-    public Map<Integer,AttackInfo> lookForEnemy(Color color){
-        Map<Integer, AttackInfo> possibleAttacks = new HashMap<>();
-        int x=0;
-        for (int i = 0; i <8 ; i++) {
-            for (int j = 0; j <8 ; j++) {
-                Field actual = Board.getFields()[i][j];
-
-                if(actual.getPiece().attackableFields(color)) {
-
-                    for (int k = 0; k < actual.getPiece().getAllDirections().length; k++) {
-
-                        Direction dir = actual.getPiece().getAllDirections()[k];
-
-                        if (actual.getPiece().attackableField(color, dir) != null) {
-
-                            possibleAttacks.put(x, addAttack(color, actual, dir));
-                            x++;
-                        }
-                    }
-                }
-            }
-        }return possibleAttacks;
-    }
-    private AttackInfo addAttack(Color color, Field actual, Direction dir){
-        return new AttackInfo(actual,actual.getPiece().attackableField(color,dir));
-    }
 }

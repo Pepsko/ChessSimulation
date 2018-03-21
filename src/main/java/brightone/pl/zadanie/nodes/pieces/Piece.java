@@ -39,7 +39,7 @@ public abstract class Piece implements Comparable<Piece>{
 
     public abstract Integer getPoints();
 
-    public int getId(){
+    public Integer getId(){
         return id;
     }
 
